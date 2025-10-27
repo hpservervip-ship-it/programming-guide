@@ -72,9 +72,81 @@
         .nav-btn:hover {
             background: #555;
         }
+        
+        /* Стили для баннера */
+        #popup-banner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s;
+        }
+        
+        #popup-banner.show {
+            display: flex;
+        }
+        
+        .banner-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .banner-content a {
+            display: block;
+            cursor: pointer;
+        }
+        
+        .banner-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+        }
+        
+        .close-banner {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: white;
+            color: #333;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 10000;
+        }
+        
+        .close-banner:hover {
+            background: #f0f0f0;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body>
+    <!-- Всплывающий баннер -->
+    <div id="popup-banner">
+        <div class="banner-content">
+            <button class="close-banner" onclick="closeBanner()">&times;</button>
+            <a href="https://example.com" target="_blank" onclick="closeBanner()">
+                <img src="https://mir-s3-cdn-cf.behance.net/projects/404/f41bee173249513.Y3JvcCwzODQwLDMwMDMsMCw5ODg.png" alt="Специальное предложение">
+            </a>
+        </div>
+    </div>
+
     <div class="header">
         <h1>📚 Справочник программиста</h1>
     </div>
@@ -95,21 +167,47 @@
     <div class="container">
         <h1>Алгоритмы и структуры данных</h1>
         
-            <p>Алгоритмы - это последовательность действий для решения задачи.</p>
-            <h2>Основные алгоритмы:</h2>
-            <p>• Сортировка (QuickSort, MergeSort)</p>
-            <p>• Поиск (бинарный поиск)</p>
-            <p>• Обход графов (DFS, BFS)</p>
-            <p>• Динамическое программирование</p>
-            <h2>Структуры данных:</h2>
-            <p>• Массивы и списки</p>
-            <p>• Стеки и очереди</p>
-            <p>• Деревья и графы</p>
-            <p>• Хеш-таблицы</p>
-        
+        <p>Алгоритмы - это последовательность действий для решения задачи.</p>
+        <h2>Основные алгоритмы:</h2>
+        <p>• Сортировка (QuickSort, MergeSort)</p>
+        <p>• Поиск (бинарный поиск)</p>
+        <p>• Обход графов (DFS, BFS)</p>
+        <p>• Динамическое программирование</p>
+        <h2>Структуры данных:</h2>
+        <p>• Массивы и списки</p>
+        <p>• Стеки и очереди</p>
+        <p>• Деревья и графы</p>
+        <p>• Хеш-таблицы</p>
+    
         <div class="navigation">
             <a href="web.html" class="nav-btn">← Веб-разработка</a><a href="tools.html" class="nav-btn">Инструменты разработчика →</a>
         </div>
     </div>
+
+    <script>
+        // Показываем баннер через 3 секунды
+        setTimeout(function() {
+            document.getElementById('popup-banner').classList.add('show');
+        }, 3000);
+        
+        // Функция закрытия баннера
+        function closeBanner() {
+            document.getElementById('popup-banner').classList.remove('show');
+        }
+        
+        // Закрытие по клику на фон
+        document.getElementById('popup-banner').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeBanner();
+            }
+        });
+        
+        // Закрытие по Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeBanner();
+            }
+        });
+    </script>
 </body>
 </html>
